@@ -9,10 +9,26 @@
 # MAGIC generate predictions — all from the Genie Code panel.
 # MAGIC
 # MAGIC Then, in modules 02–07, you rebuild the same model the governed, repeatable way (Feature Store, Unity
-# MAGIC Catalog registry, serving, monitoring, bundles). The comparison is the lesson: **Genie Code gets you to a
+# MAGIC Catalog registry, serving, monitoring, jobs). The comparison is the lesson: **Genie Code gets you to a
 # MAGIC first model in minutes; the platform pattern makes it production-grade.**
 # MAGIC
 # MAGIC **Time:** 20 minutes. Use a fresh, empty notebook for the agent's work, and keep this one open for the prompts.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (20 minutes)
+# MAGIC 1. ▶ Run the config cell.
+# MAGIC 2. Create a new empty notebook: **+ New → Notebook**, name it `genie_code_scratch`, attach **Serverless**.
+# MAGIC 3. In that notebook open **Genie Code → Agent**, paste the Step 1 prompt, and type `@cases` / `@open_cases` to attach the tables.
+# MAGIC 4. Read the plan Genie Code shows you → answer its questions → click **Allow** for each step (or turn on **Auto-approve**).
+# MAGIC 5. 👀 After a few minutes: data exploration, feature importance, an XGBoost model with ROC AUC and recall, and the 10 riskiest open cases.
+# MAGIC 6. Try the Step 2 follow-up prompts, then discuss the Step 3 debrief table as a group.
+# MAGIC 7. ✅ You have a working model built from one prompt — and a list of what is still missing for production.
 
 # COMMAND ----------
 
@@ -62,6 +78,6 @@
 # MAGIC | Is the model registered and governed? | Only Unity Catalog models can be served and audited — module 03 |
 # MAGIC | How would a claims app call it? | Model Serving with inference tables — module 05 |
 # MAGIC | Who notices when it degrades? | Data Quality Monitoring and alerts — module 06 |
-# MAGIC | How does it reach production? | Bundles and CI/CD — module 07 |
+# MAGIC | How does it reach production? | Scheduled jobs and a retraining loop — module 07 |
 # MAGIC
 # MAGIC **Next:** `02_feature_engineering`.

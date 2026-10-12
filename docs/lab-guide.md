@@ -153,19 +153,19 @@ GPU) in the compute selector; classic **ML Runtime** clusters remain available w
 
 ---
 
-## Module 07 · MLOps with bundles (20 min) — *MLOps*
+## Module 07 · Jobs & the model lifecycle (20 min) — *MLOps*
 
-1. Open `07_mlops_bundles` and read `databricks.yml`, `resources/ml_jobs.yml` and `resources/feature_pipeline.yml`.
-2. Ask Genie Code to explain what the bundle deploys.
-3. Deploy to `dev` from the Git folder's **Deployments** panel, or from a terminal:
-   ```bash
-   databricks bundle deploy -t dev --var="schema=ml_<you>"
-   databricks bundle run case_escalation_training -t dev --var="schema=ml_<you>"
-   ```
-4. Run the alias cell and discuss the champion / challenger promotion rule.
+1. Open `07_mlops_jobs`, run the config cell and the setup cell.
+2. **Step 1:** create the training job (`02` → `03`) and the nightly scoring job (`04`, created paused) — with the
+   Genie Code prompt, the Reference cell, or by hand in **Jobs & Pipelines → Create → Job**.
+3. **Step 2:** create and start the Lakeflow pipeline from `pipelines/case_features_pipeline.sql`; open it to see the
+   graph and the data-quality results.
+4. **Step 3:** start a training run, wait about 5 minutes, then list the model versions: the retrain registers v2
+   as `@challenger` unless it beats the champion.
+5. **Step 4:** discuss how drift alerts, reviewer promotion and Git pull requests close the loop.
 
-✅ **Checkpoint:** jobs `case-escalation-training` and `case-escalation-batch-scoring` and the pipeline
-`case-features-pipeline` appear under **Jobs & Pipelines** (prefixed with your name in `dev` mode).
+✅ **Checkpoint:** **Jobs & Pipelines** shows `case-escalation-training-<you>`, `case-escalation-scoring-<you>` and
+`case-features-pipeline-<you>`.
 
 ---
 
@@ -174,7 +174,7 @@ GPU) in the compute selector; classic **ML Runtime** clusters remain available w
 ```sql
 DROP SCHEMA IF EXISTS adp_workshop.ml_<you> CASCADE;
 ```
-Delete your serving endpoint and monitor, and run `databricks bundle destroy -t dev` if you deployed the bundle.
+Delete your serving endpoint and monitor, and run the clean-up cell at the end of `07_mlops_jobs` to remove your jobs and pipeline.
 
 ## Troubleshooting
 

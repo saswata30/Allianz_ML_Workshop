@@ -12,6 +12,20 @@
 # MAGIC with — no code change.
 # MAGIC
 # MAGIC **Time:** 20 minutes.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (20 minutes)
+# MAGIC 1. ▶ Run the `%pip install` cell (Python restarts), then the config cell, then the champion cell → 👀 `Scoring with … v1 (@champion)`.
+# MAGIC 2. Step 1: score the open cases → 👀 the 20 open cases with the highest escalation probability.
+# MAGIC 3. Step 2: write the predictions table → 👀 `Wrote about 9,700 predictions …`.
+# MAGIC 4. Step 3: ask Genie Code who to call first, or run the Reference → 👀 high-risk open cases by line of business.
+# MAGIC 5. ✅ `case_predictions` appears in your schema; its **Lineage** tab shows the model.
 
 # COMMAND ----------
 
@@ -44,6 +58,8 @@ print(f"Scoring with {MODEL_NAME} v{champion.version} (@champion)")
 # MAGIC > Join {OPEN_CASES_TABLE} to {FEATURE_TABLE} on case_id, score every row, and add columns
 # MAGIC > escalation_probability, predicted_escalation (probability >= 0.5), model_version and scored_at.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -102,6 +118,8 @@ print(f"Wrote {predictions.count():,} predictions to {PREDICTIONS_TABLE}")
 # MAGIC > escalation_probability, with line_of_business, claim_amount and sentiment_score. Then show the
 # MAGIC > count of high-risk open cases (probability >= 0.6) by line_of_business.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 

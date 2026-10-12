@@ -19,6 +19,21 @@
 # MAGIC > generation step — only the schema is created.
 # MAGIC
 # MAGIC **Run time:** about 1 minute on serverless compute.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (about 5 minutes)
+# MAGIC 1. ▶ Easiest option: click **Run all** at the top of the notebook, then read the results below.
+# MAGIC 2. Config cell → 👀 prints your schema name, for example `adp_workshop.ml_jane_doe`. **Write it down.**
+# MAGIC 3. *Create your schema* → 👀 `Schema ready: …`
+# MAGIC 4. *Generate synthetic claim cases* (about 1 minute) → 👀 `Wrote 60,000 labelled cases … (escalation rate ~18%)` and `Wrote 3,000 open cases`.
+# MAGIC 5. *Document the tables* → 👀 a preview of 10 claim cases.
+# MAGIC 6. ✅ In **Catalog** (left bar) open your schema: you see `cases` and `open_cases`.
 
 # COMMAND ----------
 

@@ -16,6 +16,21 @@
 # MAGIC > data-quality expectations, scheduled or triggered as new cases land.
 # MAGIC
 # MAGIC **Time:** 25 minutes.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (25 minutes)
+# MAGIC 1. ▶ Run the `%pip install` cell → 👀 Python restarts (that's expected; it takes about 30 seconds).
+# MAGIC 2. ▶ Run the config cell.
+# MAGIC 3. Step 1: ask Genie Code with the 🧞 prompt, or run the Reference → 👀 a preview of 5 rows with new columns such as `contacts_per_week`.
+# MAGIC 4. Step 2: register the feature table → 👀 `Created feature table …case_features`.
+# MAGIC 5. Step 3: write the labels → 👀 `Wrote 60,000 labels …`.
+# MAGIC 6. ✅ In **Catalog**, open `case_features` → the **Details** show `case_id` as the primary key. Also check **Machine Learning → Features**.
 
 # COMMAND ----------
 
@@ -40,6 +55,8 @@
 # MAGIC > sentiment_score, has_attorney. Cast the flags to int. Apply it to both {CASES_TABLE} and
 # MAGIC > {OPEN_CASES_TABLE} and union the results.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -77,6 +94,8 @@ display(features_df.limit(5))
 # MAGIC > from features_df with primary key case_id and a description. If it already exists,
 # MAGIC > merge the new rows into it instead.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 

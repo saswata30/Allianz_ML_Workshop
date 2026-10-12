@@ -26,6 +26,21 @@
 # MAGIC > that is the habit we want for production ML.
 # MAGIC
 # MAGIC **Time:** 25 minutes.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (25 minutes)
+# MAGIC 1. ▶ Run the config cell → 👀 your table names. Copy the `cases table` name.
+# MAGIC 2. Open **Genie Code**: click the ✨ sparkle icon, then pick **Agent** in the lower-right corner of the panel.
+# MAGIC 3. For **each Step 1–4** below: copy the 🧞 prompt → paste it into Genie Code → press Enter → click **Allow** when it wants to run code.
+# MAGIC 4. 👀 Step 1: 60,000 rows and an escalation rate of about 18%. Step 2: a table and bar chart by line of business. Step 3: four box plots. Step 4: a list of suggested features.
+# MAGIC 5. Compare with the `# Reference` cell under each step. Different but sensible? Great. Broken? Just run the Reference cell.
+# MAGIC 6. ✅ You can name the line of business that escalates most and three signals that predict escalation.
 
 # COMMAND ----------
 
@@ -42,6 +57,8 @@
 # MAGIC > statistics for numeric columns. Then show the overall escalation rate.
 # MAGIC > ```
 # MAGIC > *(Replace `{CASES_TABLE}` with the name printed by the config cell above.)*
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -61,6 +78,8 @@ display(cases.groupBy().avg(LABEL_COL).withColumnRenamed(f"avg({LABEL_COL})", "e
 # MAGIC > For each line_of_business and channel in this table, show the number of cases and the
 # MAGIC > escalation rate, sorted by escalation rate. Plot escalation rate by line_of_business as a bar chart.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -83,6 +102,8 @@ display(seg)
 # MAGIC > for escalated vs non-escalated cases. Use a sample of 10,000 rows, show box plots, and
 # MAGIC > summarise in two sentences which features look most predictive.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -111,6 +132,8 @@ display(fig)
 # MAGIC > Do not create any tables yet.
 # MAGIC > ```
 # MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
+# MAGIC
 # MAGIC Keep the list Genie Code gives you — in module 02 we build the feature table. The reference feature set is:
 # MAGIC
 # MAGIC | Feature | Expression | Why |
@@ -126,7 +149,7 @@ display(fig)
 # MAGIC %md
 # MAGIC ## Optional · Work from your IDE
 # MAGIC The same notebooks can be edited in VS Code or Cursor with the **Databricks extension** (or Databricks
-# MAGIC Connect), keeping code in Git. Module 07 shows how the repo deploys as a bundle.
+# MAGIC Connect), keeping code in Git. Module 07 shows how the same notebooks run as scheduled jobs.
 # MAGIC
 # MAGIC ## ✅ Checkpoint
 # MAGIC * You can explain which segments escalate most, and you have a list of candidate features.

@@ -13,6 +13,21 @@
 # MAGIC cluster on an **ML Runtime** — the code is the same.
 # MAGIC
 # MAGIC **Time:** 40 minutes.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (40 minutes)
+# MAGIC 1. ▶ Run the `%pip install` cell (Python restarts), then the config cell, then the MLflow cell → 👀 the experiment path.
+# MAGIC 2. Step 1: build the training set → 👀 `Train 48,000 · Test 12,000 · Positive rate ~18%`.
+# MAGIC 3. Step 2: train the three models (about 3 minutes) → 👀 three lines, each with a ROC AUC of roughly 0.70–0.80.
+# MAGIC 4. Step 3: click **Experiments** in the left bar → open `allianz_ml_workshop_case_escalation` → tick the three runs → **Compare**.
+# MAGIC 5. Step 4: register the best model → 👀 `Registered … as @champion`.
+# MAGIC 6. ✅ In **Catalog → your schema → Models**, `case_escalation` version 1 has the alias `champion`.
 
 # COMMAND ----------
 
@@ -44,6 +59,8 @@ print("Experiment:", EXPERIMENT_PATH)
 # MAGIC > on {FEATURE_TABLE} keyed by case_id, label escalated, excluding opened_at. Load it as a pandas
 # MAGIC > DataFrame and split it 80/20 stratified on the label with random_state 42.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -84,6 +101,8 @@ print("Numeric features:", NUMERIC)
 # MAGIC > Log each as its own MLflow run with ROC AUC, PR AUC, F1 and recall on X_test, and log the
 # MAGIC > model with a signature and input example.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -169,6 +188,8 @@ for kind in ["logistic_regression", "hist_gradient_boosting", "xgboost"]:
 # MAGIC > Search the runs in experiment {EXPERIMENT_PATH} with mlflow.search_runs, show model_type and the
 # MAGIC > test metrics in a table, and tell me which run has the best ROC AUC.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -218,6 +239,6 @@ else:
 # MAGIC * ROC AUC should be about 0.70–0.80 on the synthetic data (the label is deliberately noisy, like real escalations).
 # MAGIC
 # MAGIC **Discuss:** what would make you promote a new version to `@champion` — a metric threshold, a review,
-# MAGIC or both? (We automate this in module 07.)
+# MAGIC or both? (Module 07 runs this on a schedule.)
 # MAGIC
 # MAGIC **Next:** `04_batch_inference`.

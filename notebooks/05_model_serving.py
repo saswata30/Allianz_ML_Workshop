@@ -10,6 +10,22 @@
 # MAGIC in your schema, ready for monitoring and retraining.
 # MAGIC
 # MAGIC **Time:** 30 minutes (endpoint creation takes about 10 minutes — keep going with the reading below while it builds).
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (30 minutes — most of it waiting)
+# MAGIC 1. ▶ Run the config cell and the SDK cell.
+# MAGIC 2. Step 1: create the endpoint → 👀 `Creating … (about 10 minutes)`. **While you wait**, read the next cell and open **Serving** in the left bar to watch it build.
+# MAGIC 3. 👀 When it finishes: `Endpoint ready: …`.
+# MAGIC 4. Step 2: send 5 cases → 👀 a table with an `escalation_probability` for each case.
+# MAGIC 5. Step 3: run it again after about 10 minutes → 👀 your requests logged in the inference table.
+# MAGIC 6. Step 4: on the endpoint page, open **Genie Code → Agent** and ask `Check the health of this endpoint`.
+# MAGIC 7. ✅ The endpoint shows **Ready** and returns probabilities.
 
 # COMMAND ----------
 
@@ -39,6 +55,8 @@ champion = MlflowClient().get_model_version_by_alias(MODEL_NAME, "champion")
 # MAGIC > inference tables writing to {CATALOG}.{SCHEMA}. If the endpoint already exists, update it to the
 # MAGIC > champion version instead.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 # MAGIC
 # MAGIC **UI alternative:** Catalog Explorer → your model → version → **Serve this model**.
 
@@ -85,6 +103,8 @@ print(f"Endpoint ready: {w.config.host}/ml/endpoints/{ENDPOINT_NAME}")
 # MAGIC > Take 5 open cases joined to their features and send them to the endpoint {ENDPOINT_NAME} with
 # MAGIC > w.serving_endpoints.query using dataframe_records. Show case_id with the returned probability.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 

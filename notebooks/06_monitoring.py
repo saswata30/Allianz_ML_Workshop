@@ -14,6 +14,21 @@
 # MAGIC It also creates a **dashboard**, and you can set **SQL alerts** on the metric tables.
 # MAGIC
 # MAGIC **Time:** 25 minutes.
+# MAGIC
+# MAGIC ---
+# MAGIC ### 🗺️ How to follow this notebook
+# MAGIC * **Compute:** at the top right, attach **Serverless**.
+# MAGIC * **Run cells one at a time, top to bottom** — click inside a cell and press `Shift + Enter`.
+# MAGIC * **Symbols:** 🧞 = ask Genie Code first · ▶ = run the next cell · 👀 = what you should see · ✅ = check before moving on.
+# MAGIC * **Stuck?** Run the cell marked `# Reference` under each prompt — it always works, so you can never fall behind.
+# MAGIC
+# MAGIC ### Your path (25 minutes)
+# MAGIC 1. ▶ Run the config cell and the setup cell.
+# MAGIC 2. Step 1: create the monitor → 👀 `Monitor created`.
+# MAGIC 3. Step 2: add the storm-surge batch and refresh → 👀 `Refresh started …`. Wait 5–10 minutes (watch the table's **Quality** tab).
+# MAGIC 4. Step 3: when the refresh says *Succeeded*, run the drift cell → 👀 bigger drift numbers for `claim_amount` and `num_contacts`.
+# MAGIC 5. Step 4: follow the steps to create a SQL alert.
+# MAGIC 6. ✅ The **Quality** tab on `case_predictions` shows charts for profile, drift and model quality.
 
 # COMMAND ----------
 
@@ -40,6 +55,8 @@ ASSETS_DIR = f"/Workspace/Users/{CURRENT_USER}/allianz_ml_workshop_monitoring"
 # MAGIC > model id column model_version, timestamp column scored_at, granularity 1 day. Write the metric
 # MAGIC > tables to {CATALOG}.{SCHEMA}.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 # MAGIC
 # MAGIC **UI alternative:** Catalog Explorer → `case_predictions` → **Quality** tab → **Get started**.
 
@@ -101,6 +118,8 @@ print("Refresh started:", refresh.refresh_id, "— takes a few minutes on server
 # MAGIC > From {PREDICTIONS_TABLE}_drift_metrics, show the columns with the largest population stability
 # MAGIC > index or Jensen-Shannon distance in the most recent window, and explain what changed.
 # MAGIC > ```
+# MAGIC
+# MAGIC ▶ **Next:** if you used Genie Code and it worked, skip ahead. Otherwise run the `# Reference` cell below.
 
 # COMMAND ----------
 
@@ -130,4 +149,4 @@ else:
 # MAGIC * The **Quality** tab on `case_predictions` shows profile, drift and model-quality metrics, plus a dashboard.
 # MAGIC * You can point to the drift you introduced in `claim_amount` and `num_contacts`.
 # MAGIC
-# MAGIC **Next:** `07_mlops_bundles`.
+# MAGIC **Next:** `07_mlops_jobs`.
