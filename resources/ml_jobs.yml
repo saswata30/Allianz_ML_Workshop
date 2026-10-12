@@ -1,0 +1,35 @@
+resources:
+  jobs:
+    case_escalation_training:
+      name: case-escalation-training
+      description: Refresh features, retrain and register the case-escalation model (promotes only if it beats @champion).
+      tasks:
+        - task_key: features
+          notebook_task:
+            notebook_path: ../notebooks/02_feature_engineering.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+        - task_key: train_register
+          depends_on:
+            - task_key: features
+          notebook_task:
+            notebook_path: ../notebooks/03_train_and_track.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}
+
+    case_escalation_batch_scoring:
+      name: case-escalation-batch-scoring
+      description: Nightly scoring of open cases with the @champion model.
+      schedule:
+        quartz_cron_expression: "0 0 5 * * ?"
+        timezone_id: America/Chicago
+        pause_status: PAUSED
+      tasks:
+        - task_key: score_open_cases
+          notebook_task:
+            notebook_path: ../notebooks/04_batch_inference.py
+            base_parameters:
+              catalog: ${var.catalog}
+              schema: ${var.schema}

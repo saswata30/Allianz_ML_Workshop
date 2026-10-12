@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADP Workshop · ML Pattern with Genie Code</title>
+<meta name="description" content="Track 2 facilitator guide: the Databricks Data Science & ML platform end to end with Genie Code, on Allianz case data.">
+<style>
+  :root{
+    --paper:#F4F7F7; --surface:#FFFFFF; --surface-2:#EAF0F0; --sunken:#E6EDED;
+    --ink:#141F20; --muted:#526062; --faint:#84999b; --line:#DDE6E6;
+    --navy:#0A2A2E; --navy-2:#0F3A40; --on-navy:#E7F5F6; --navy-soft:#A6CDD0;
+    --accent:#0E7C86; --accent-2:#0A5D65; --accent-soft:#DBEFF0; --on-accent:#FFFFFF;
+    --good:#1E7A46; --warn:#9A6400;
+    --shadow:0 1px 2px rgba(10,42,46,.06),0 8px 24px rgba(10,42,46,.06);
+    --radius:14px; --radius-sm:9px;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --paper:#080D0D; --surface:#111A1B; --surface-2:#182324; --sunken:#0C1414;
+      --ink:#E7EEEE; --muted:#9AAEB0; --faint:#65797b; --line:#243334;
+      --navy:#071E21; --navy-2:#0D3237; --on-navy:#E1F3F4; --navy-soft:#7FB4B8;
+      --accent:#3FB6BF; --accent-2:#66CBD2; --accent-soft:#0C2A2C; --on-accent:#04191b;
+      --good:#5FC98C; --warn:#E0AE55;
+      --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#080D0D; --surface:#111A1B; --surface-2:#182324; --sunken:#0C1414;
+    --ink:#E7EEEE; --muted:#9AAEB0; --faint:#65797b; --line:#243334;
+    --navy:#071E21; --navy-2:#0D3237; --on-navy:#E1F3F4; --navy-soft:#7FB4B8;
+    --accent:#3FB6BF; --accent-2:#66CBD2; --accent-soft:#0C2A2C; --on-accent:#04191b;
+    --good:#5FC98C; --warn:#E0AE55;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif; font-weight:700; line-height:1.08; text-wrap:balance; margin:0;}
+  a{color:var(--accent-2); text-decoration:none;} a:hover{text-decoration:underline;}
+  code{font-family:"IBM Plex Mono",monospace; font-size:.86em; background:var(--surface-2); padding:.08em .38em; border-radius:5px; border:1px solid var(--line);}
+  .wrap{max-width:1000px; margin:0 auto; padding-inline:22px;}
+  .band{background:radial-gradient(1200px 400px at 12% -20%, var(--navy-2), transparent 60%), var(--navy); color:var(--on-navy); border-bottom:3px solid var(--accent);}
+  .band .wrap{padding-block:30px 34px;}
+  .topline{display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:22px;}
+  .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--navy-soft);}
+  .track-tag{display:inline-flex; align-items:center; gap:8px; font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.08em; text-transform:uppercase; background:var(--accent); color:var(--on-accent); padding:5px 11px; border-radius:999px; font-weight:600;}
+  h1{font-size:clamp(30px,5.2vw,46px); color:#fff; letter-spacing:-.01em;}
+  .lede{max-width:64ch; margin-top:12px; color:var(--navy-soft); font-size:clamp(15px,2vw,17px);}
+  .meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:24px;}
+  .chip{display:inline-flex; flex-direction:column; gap:2px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); padding:9px 14px; border-radius:10px; min-width:120px;}
+  .chip .k{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--navy-soft);}
+  .chip .v{font-size:14px; font-weight:600; color:#fff;}
+  .theme-btn{background:rgba(255,255,255,.08); color:var(--on-navy); border:1px solid rgba(255,255,255,.18); border-radius:9px; padding:7px 12px; font-size:13px; cursor:pointer; font-family:inherit;}
+  .theme-btn:hover{background:rgba(255,255,255,.16);}
+  section{padding-block:38px;} section + section{border-top:1px solid var(--line);}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:20px;}
+  .sec-num{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--accent-2); font-weight:600; padding-top:4px;}
+  .sec-head h2{font-size:clamp(21px,3vw,27px);}
+  .sec-sub{color:var(--muted); max-width:70ch; margin:-8px 0 22px; font-size:15px;}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px;}
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow);}
+  .card h3{font-size:16px; margin-bottom:6px; display:flex; gap:9px; align-items:center;}
+  .card p{margin:0; color:var(--muted); font-size:14px;}
+  .dot{width:9px; height:9px; border-radius:3px; background:var(--accent); flex:none;}
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  .panel{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; box-shadow:var(--shadow);}
+  .panel h3{font-size:15px; text-transform:uppercase; letter-spacing:.05em; font-weight:700; color:var(--muted); margin-bottom:12px;}
+  .ticks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .ticks li{position:relative; padding-left:26px; font-size:14.5px;}
+  .ticks li::before{content:""; position:absolute; left:0; top:3px; width:16px; height:16px; border-radius:5px; background:var(--accent-soft); border:1px solid var(--accent);}
+  .ticks li::after{content:""; position:absolute; left:5px; top:6px; width:4px; height:8px; border-right:2px solid var(--accent-2); border-bottom:2px solid var(--accent-2); transform:rotate(40deg);}
+  figure{margin:0; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); overflow-x:auto;}
+  figure svg{display:block; width:100%; height:auto; color:var(--ink); min-width:600px;}
+  figcaption{margin-top:14px; font-size:13.5px; color:var(--muted); border-top:1px dashed var(--line); padding-top:12px;}
+  .agenda{display:flex; flex-direction:column;}
+  .slot{display:grid; grid-template-columns:118px 1fr; border-left:2px solid var(--line);}
+  .slot .time{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--muted); padding:16px 16px 16px 18px; position:relative; white-space:nowrap;}
+  .slot .time::before{content:""; position:absolute; left:-7px; top:20px; width:12px; height:12px; border-radius:50%; background:var(--surface); border:2px solid var(--accent);}
+  .slot .body{padding:14px 4px 20px 8px;}
+  .slot .body h3{font-size:17px; margin-bottom:5px;}
+  .slot .body p{margin:0; color:var(--muted); font-size:14px;}
+  .dur{display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; background:var(--surface-2); border:1px solid var(--line); border-radius:6px; padding:1px 7px; color:var(--muted); margin-left:8px; vertical-align:middle;}
+  .hands{display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-2); font-weight:600; margin-left:8px;}
+  .slot.brk .time::before{background:var(--warn); border-color:var(--warn);}
+  .slot.brk .body h3{font-size:14px; color:var(--warn); text-transform:uppercase; letter-spacing:.05em; font-family:"IBM Plex Sans",sans-serif;}
+  ul.build{margin:10px 0 0; padding-left:18px; color:var(--muted); font-size:13.5px;}
+  ul.build li{margin:4px 0;} ul.build li strong{color:var(--ink); font-weight:600;}
+  .actions{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px;}
+  .act{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:var(--radius-sm); padding:16px 18px; box-shadow:var(--shadow);}
+  .act .who{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-2); font-weight:600;}
+  .act h3{font-size:15px; margin:6px 0 6px;} .act p{margin:0; color:var(--muted); font-size:13.5px;}
+  footer{background:var(--navy); color:var(--navy-soft);}
+  footer .wrap{padding-block:22px; display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; font-size:13px;}
+  @media (max-width:640px){.split{grid-template-columns:1fr;} .slot{grid-template-columns:92px 1fr;} .slot .time{padding-left:14px; font-size:12px;}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .pmap{display:flex;flex-direction:column;gap:12px;min-width:640px}
+  .prow,.pcol{background:var(--surface-2);border:2px solid var(--accent);border-radius:12px;padding:12px 14px}
+  .prow.ops{border-color:#E8573F}
+  .prow{display:grid;grid-template-columns:1fr 1.4fr;gap:12px;align-items:center}
+  .ptitle b,.pcol b{display:block;font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;font-size:17px}
+  .ptitle i,.pcol i{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+  .pboxes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pcols{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .pcol{display:flex;flex-direction:column;gap:8px;text-align:center}
+  .pmap span{display:flex;flex-direction:column;align-items:center;justify-content:center;background:#2B4F5E;color:#fff;border-radius:7px;padding:8px 8px;font-size:13px;font-weight:600;text-align:center}
+  .pmap span em{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;color:#A6CDD0;margin-top:2px}
+  @media print{.band{-webkit-print-color-adjust:exact;print-color-adjust:exact}.pmap span,.prow,.pcol{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div class="topline"><span class="eyebrow">ADP Workshop · ML Pattern with Genie Code</span><button class="theme-btn" id="themeBtn" type="button">◐ Theme</button></div>
+    <span class="track-tag">◆ Track 2 — Machine Learning</span>
+    <h1 style="margin-top:14px">The Databricks ML Platform, End to End — with Genie Code</h1>
+    <p class="lede">Attendees build a claim-case escalation model across every layer of the Databricks Data Science &amp; ML platform, using Genie Code for ML as their AI pair-programmer — from EDA to a monitored, governed serving endpoint deployed as code.</p>
+    <div class="meta">
+      <span class="chip"><span class="k">Duration</span><span class="v">3.5 hrs · 2 breaks</span></span>
+      <span class="chip"><span class="k">Attendees</span><span class="v">~12</span></span>
+      <span class="chip"><span class="k">Facilitator</span><span class="v">SA + Inspire11</span></span>
+      <span class="chip"><span class="k">Reviewer</span><span class="v">Jack Law</span></span>
+      <span class="chip"><span class="k">Repo</span><span class="v">saswata30/Allianz_ML_Workshop</span></span>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>What attendees walk away able to do</h2></div>
+  <div class="cards">
+    <div class="card"><h3><span class="dot"></span>Build with Genie Code</h3><p>Plan, write and run ML code from the Genie Code panel — EDA, features, XGBoost training, predictions — while reviewing every step.</p></div>
+    <div class="card"><h3><span class="dot"></span>Engineer governed features</h3><p>Publish a Unity Catalog feature table and build training sets with lineage from feature to model.</p></div>
+    <div class="card"><h3><span class="dot"></span>Track, register &amp; serve</h3><p>Compare runs in MLflow, register the champion in Unity Catalog, score in batch and deploy a serverless endpoint.</p></div>
+    <div class="card"><h3><span class="dot"></span>Monitor &amp; operationalise</h3><p>Watch quality and drift with Data Quality Monitoring, and ship the pipeline as a bundle with jobs and promotion rules.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>The platform map — and where each module lands</h2></div>
+  <p class="sec-sub">The workshop walks the standard Databricks Data Science &amp; ML platform. Module numbers refer to notebooks in the repo.</p>
+  <figure>
+    <div class="pmap">
+      <div class="prow wide"><div class="ptitle"><b>EDA &amp; development</b><i>Fast development with AI assistance and human collaboration</i></div><div class="pboxes"><span>Genie Code for ML <em>01 · 01b</em></span><span>Notebooks &amp; IDE integration <em>all</em></span></div></div>
+      <div class="pcols">
+        <div class="pcol"><b>Data</b><i>Batch, streaming and real-time features</i><span>Lakeflow <em>02 · pipeline</em></span><span>Feature Store <em>02</em></span></div>
+        <div class="pcol"><b>Training</b><i>CPU &amp; GPU compute for training &amp; tuning</i><span>AI Runtime (serverless) <em>03</em></span><span>ML Runtime (classic) <em>03</em></span></div>
+        <div class="pcol"><b>Serving</b><i>Batch and real-time inference</i><span>Batch inference <em>04</em></span><span>Model Serving <em>05</em></span><span>Feature Serving <em>05 stretch</em></span></div>
+        <div class="pcol"><b>Monitoring</b><i>Dashboards and alerts in production</i><span>Inference tables <em>05</em></span><span>Data Quality Monitoring for ML <em>06</em></span></div>
+      </div>
+      <div class="prow wide ops"><div class="ptitle"><b>MLOps</b><i>Tracking and infrastructure as code for the full ML lifecycle</i></div><div class="pboxes"><span>Declarative Automation Bundles &amp; MLOps Stacks <em>07</em></span><span>MLflow <em>03 · 07</em></span></div></div>
+      <div class="prow wide ops"><div class="ptitle"><b>Governance &amp; storage</b><i>Unified data and ML platform with open standards and formats</i></div><div class="pboxes"><span>Unity Catalog <em>all</em></span><span>Delta Lake <em>all</em></span></div></div>
+    </div>
+    <figcaption><b>Figure 1 — Every layer, one use case.</b> Genie Code accelerates the work at each layer; Unity Catalog governs every table, feature, model and endpoint; MLflow records what produced each model. Genie Code for ML replaces AutoML for customised model development.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Assumptions &amp; prerequisites</h2></div>
+  <div class="split">
+    <div class="panel"><h3>Workspace (confirm with Allianz)</h3><ul class="ticks">
+      <li><b>Partner-powered AI features</b> enabled for the account and workspace (required for Genie Code).</li>
+      <li>Catalog <code>adp_workshop</code> with <code>USE CATALOG</code> + <code>CREATE SCHEMA</code> for attendees.</li>
+      <li>Serverless notebooks and jobs (or DBR 16.4 LTS ML+ shared cluster).</li>
+      <li>Model Serving and Data Quality Monitoring available in the region.</li>
+      <li>Optional: curated <code>adp.claims.cases</code> table — otherwise the synthetic data is used.</li>
+    </ul></div>
+    <div class="panel"><h3>At each seat</h3><ul class="ticks">
+      <li>Git folder created from <code>github.com/saswata30/Allianz_ML_Workshop</code>.</li>
+      <li><code>00_setup_data</code> run once — personal schema <code>ml_&lt;user&gt;</code> with 60k labelled and 3k open cases.</li>
+      <li>Genie Code panel opens and <b>Agent</b> mode is available.</li>
+      <li>A small serverless SQL warehouse for the monitoring dashboard and alert.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Agenda — 3.5 hours</h2></div>
+  <p class="sec-sub">Timeboxes assume a 09:00 start. <span class="hands">▶ hands-on</span> marks build blocks. Each block gives a Genie Code prompt first and a tested reference solution second.</p>
+  <div class="agenda">
+    <div class="slot"><div class="time">0:00–0:15</div><div class="body"><h3>Welcome, use case &amp; platform map<span class="dur">15m</span></h3><p>The escalation question, the data, and Figure 1.</p></div></div>
+    <div class="slot"><div class="time">0:15–0:25</div><div class="body"><h3>00 · Setup<span class="dur">10m</span><span class="hands">▶ hands-on</span></h3><p>Git folder, serverless, personal schema and synthetic cases.</p></div></div>
+    <div class="slot"><div class="time">0:25–0:50</div><div class="body"><h3>01 · EDA with Genie Code<span class="dur">25m</span><span class="hands">▶ hands-on</span></h3><p>Profile, segment and visualise with <code>@cases</code>; ask Genie Code to propose features.</p></div></div>
+    <div class="slot"><div class="time">0:50–1:10</div><div class="body"><h3>01b · Genie Code challenge<span class="dur">20m</span><span class="hands">▶ hands-on</span></h3><p>One prompt → plan → explore, features, XGBoost, predictions. Debrief: what's missing for production?</p></div></div>
+    <div class="slot"><div class="time">1:10–1:35</div><div class="body"><h3>02 · Features &amp; Feature Store<span class="dur">25m</span><span class="hands">▶ hands-on</span></h3><p>Build <code>case_features</code> with a primary key; labels kept separate; Lakeflow pipeline walkthrough.</p></div></div>
+    <div class="slot brk"><div class="time">1:35–1:50</div><div class="body"><h3>☕ Break<span class="dur">15m</span></h3></div></div>
+    <div class="slot"><div class="time">1:50–2:30</div><div class="body"><h3>03 · Train, track &amp; register<span class="dur">40m</span><span class="hands">▶ hands-on</span></h3><p>FeatureLookup training set; logistic regression vs gradient boosting vs XGBoost in MLflow; register <code>@champion</code> in Unity Catalog.</p></div></div>
+    <div class="slot"><div class="time">2:30–2:50</div><div class="body"><h3>04 · Batch inference<span class="dur">20m</span><span class="hands">▶ hands-on</span></h3><p>Spark-UDF scoring by alias into <code>case_predictions</code>; who to call first.</p></div></div>
+    <div class="slot brk"><div class="time">2:50–3:00</div><div class="body"><h3>☕ Break — endpoints build<span class="dur">10m</span></h3></div></div>
+    <div class="slot"><div class="time">3:00–3:15</div><div class="body"><h3>05 · Model Serving<span class="dur">15m</span><span class="hands">▶ hands-on</span></h3><p>Serverless endpoint with AI Gateway inference table; query it; Genie Code endpoint health check.</p></div></div>
+    <div class="slot"><div class="time">3:15–3:30</div><div class="body"><h3>06 · Monitoring · 07 · MLOps · recap<span class="dur">15m</span></h3><p>Drift on a simulated storm surge; bundle with training and scoring jobs; champion/challenger; next steps.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Actions &amp; sign-off</h2></div>
+  <div class="actions">
+    <div class="act"><div class="who">→ Allianz</div><h3>Confirm the workspace</h3><p>Partner-powered AI features, catalog grants, serverless, Model Serving and monitoring availability.</p></div>
+    <div class="act"><div class="who">→ Allianz</div><h3>Choose the data</h3><p>Synthetic cases (default) or the curated <code>adp.claims.cases</code> table with the same columns.</p></div>
+    <div class="act"><div class="who">→ Databricks</div><h3>Dry-run the build</h3><p>Run 00 → 07 once with a test user; time-box each block; pre-create one endpoint as a fallback.</p></div>
+  </div>
+</section>
+</main>
+<footer><div class="wrap"><span>Allianz Data Platform · Hands-on Enablement — Track 2 of 3</span><span>Genie Code · Feature Store · MLflow · Unity Catalog · Model Serving · Data Quality Monitoring</span></div></footer>
+
+<script>
+  (function(){
+    var root=document.documentElement, btn=document.getElementById('themeBtn');
+    try{var s=localStorage.getItem('adp-theme'); if(s){root.setAttribute('data-theme',s);}}catch(e){}
+    function cur(){var a=root.getAttribute('data-theme'); if(a) return a; return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+    btn.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark'; root.setAttribute('data-theme',n); try{localStorage.setItem('adp-theme',n);}catch(e){}});
+  })();
+</script>
+
+</body>
+</html>
